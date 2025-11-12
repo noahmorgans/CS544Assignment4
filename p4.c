@@ -13,7 +13,7 @@ int main() {
 
     char token[100];
     printf("Enter a token to identify, EOF to stop:\n");
-    scanf("%s", token);
+    scanf("%99s", token);
 
     while(!feof(stdin)) {
 

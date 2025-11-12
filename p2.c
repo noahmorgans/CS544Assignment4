@@ -11,7 +11,7 @@
 
         if(strcmp(direction, "north") == 0) {
             printf("enter a positive integer: ");
-            r = scanf("%d", &num);
+            r = scanf("%99d", &num);
             if(r == 1){
                 if (num % 2 == 0) {
                     printf("yes or no: ");
@@ -31,13 +31,13 @@
         }
         if (strcmp(direction, "south") == 0) {
             printf("left or right: ");
-            scanf("%s", leftRight);
+            scanf("%5s", leftRight);
                 if (strcmp(leftRight, "right") == 0) {
                     printf("fast or slow: ");
-                    scanf("%s", fastSlow);
+                    scanf("%4s", fastSlow);
                         if (strcmp(fastSlow, "slow") == 0) {
                             printf("big or small: ");
-                            scanf("%s", bigSmall);
+                            scanf("%5s", bigSmall);
                                 if (strcmp(bigSmall, "big") == 0) {
                                     printf("run\n");
                                 }
@@ -55,13 +55,13 @@
         }
         if (strcmp(direction, "east") == 0) {
             printf("red, white, or gray: ");
-            scanf("%s", color);
+            scanf("%5s", color);
                 if (strcmp(color, "red") == 0) {
                     printf("yes or no: ");
-                    scanf("%s", yesNo);
+                    scanf("%3s", yesNo);
                         if (strcmp(yesNo, "no") == 0) {
                             printf("up or down: ");
-                            scanf("%s", upDown);
+                            scanf("%4s", upDown);
                                 if (strcmp(upDown, "up") == 0){
                                     printf("top-rope\n");
                                 }
@@ -75,7 +75,7 @@
                 }
                 else if (strcmp(color, "white") == 0) {
                     printf("easy or hard: ");
-                    scanf("%s", easyHard);
+                    scanf("%4s", easyHard);
                         if (strcmp(easyHard, "easy") == 0) {
                             printf("longboard\n");
                         }
@@ -85,10 +85,10 @@
                 }
                 else {
                     printf("left, center, or right: ");
-                    scanf("%s", leftCenterRight);
+                    scanf("%6s", leftCenterRight);
                         if (strcmp(leftCenterRight, "left") == 0) {
                             printf("build or destroy: ");
-                            scanf("%s", buildDestroy);
+                            scanf("%7s", buildDestroy);
                                 if (strcmp(buildDestroy, "build") == 0)
                                     printf("hike\n");
                                 else 
@@ -96,7 +96,7 @@
                         }
                         if (strcmp(leftCenterRight, "center") == 0) {
                             printf("open or closed: ");
-                            scanf("%s", openClosed);
+                            scanf("%6s", openClosed);
                                 if (strcmp(openClosed, "open") == 0) {
                                     printf("zoo\n");
                                 }
@@ -112,7 +112,7 @@
                 }
         if (strcmp(direction, "west") == 0) {
             printf("enter an integer: ");
-            r = scanf("%d", &num);
+            r = scanf("%99d", &num);
                 if(r == 1) {
                     if (num < 0) {
                         printf("sunny or cloudy: ");
