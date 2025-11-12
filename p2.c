@@ -11,7 +11,8 @@
 
         if(strcmp(direction, "north") == 0) {
             printf("enter a positive integer: ");
-            scanf("%d", &num);
+            r = scanf("%d", &num);
+            if(r == 1){
                 if (num % 2 == 0) {
                     printf("yes or no: ");
                     scanf("%s", yesNo);
@@ -25,6 +26,7 @@
                 else {
                   printf("beach\n");
                 }
+            }
 
         }
         if (strcmp(direction, "south") == 0) {
