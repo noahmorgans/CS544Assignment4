@@ -15,7 +15,7 @@
             if(r == 1){
                 if (num % 2 == 0) {
                     printf("yes or no: ");
-                    scanf("%s", yesNo);
+                    scanf("%3s", yesNo);
                         if (strcmp(yesNo, "yes") == 0) {
                             printf("lake\n");
                         }
