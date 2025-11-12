@@ -4,7 +4,7 @@
     int main(){
 
         char direction[6], yesNo[4], leftRight[6], fastSlow[5], buildDestroy[8], sunnyCloudy[7], bigSmall[6], color[6], upDown[5], easyHard[5], leftCenterRight[7], openClosed[7];
-        int num;
+        int num, r;
 
         printf("north, south, east, or west: ");
         scanf("%s", direction);
@@ -110,18 +110,20 @@
                 }
         if (strcmp(direction, "west") == 0) {
             printf("enter an integer: ");
-            scanf("%d", &num);
-                if (num < 0) {
-                    printf("sunny or cloudy: ");
-                    scanf("%6s", sunnyCloudy);
-                        if (strcmp(sunnyCloudy, "sunny") == 0) {
-                            printf("tennis\n");
-                        }
-                        else 
-                            printf("racquetball\n");
+            r = scanf("%d", &num);
+                if(r == 1) {
+                    if (num < 0) {
+                        printf("sunny or cloudy: ");
+                        scanf("%6s", sunnyCloudy);
+                            if (strcmp(sunnyCloudy, "sunny") == 0) {
+                                printf("tennis\n");
+                            }
+                            else 
+                                printf("racquetball\n");
+                    }
+                    else
+                        printf("frisbee\n");
                 }
-                else
-                    printf("frisbee\n");
         }
 
         return 0;
