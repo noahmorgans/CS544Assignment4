@@ -71,7 +71,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    char fileBuffer[PATH_MAX];
+    char fileBuffer[50];
     snprintf(fileBuffer, sizeof(fileBuffer), "/home/user/files/%s", fileName);
     inFile.open(fileBuffer);
 
