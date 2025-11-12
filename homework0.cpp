@@ -56,16 +56,65 @@ class Movie{
 
 };
 
+// Validate filename to prevent path traversal attacks
+bool isValidFilename(const string& filename) {
+    // Check for path traversal patterns
+    if (filename.find("..") != string::npos) {
+        return false;
+    }
+    
+    // Check for absolute paths or directory separators
+    if (filename.find('/') != string::npos || filename.find('\\') != string::npos) {
+        return false;
+    }
+    
+    // Check if filename is empty
+    if (filename.empty()) {
+        return false;
+    }
+    
+    return true;
+}
+
+// Extract base filename without path and extension
+string getBaseFilename(const char* filepath) {
+    string filename = filepath;
+    
+    // Find last directory separator (if any)
+    size_t lastSlash = filename.find_last_of("/\\");
+    if (lastSlash != string::npos) {
+        filename = filename.substr(lastSlash + 1);
+    }
+    
+    // Remove extension
+    size_t lastDot = filename.find_last_of('.');
+    if (lastDot != string::npos) {
+        filename = filename.substr(0, lastDot);
+    }
+    
+    return filename;
+}
+
 int main(int argc, char* argv[]){
+
+    if (argc < 2) {
+        cerr << "Error: No input file specified" << endl;
+        cerr << "Usage: " << argv[0] << " <filename>" << endl;
+        return 1;
+    }
 
     auto totalTimeStart = chrono::steady_clock::now();                  // start total time
 
     ifstream inFile;
-    string fileName;
     string line;
     vector<Movie> movies;
 
     inFile.open(argv[1]);
+    
+    if (!inFile.is_open()) {
+        cerr << "Error: Could not open file " << argv[1] << endl;
+        return 1;
+    }
 
     auto startTime = chrono::steady_clock::now();                       // start timing for creating collections
 
@@ -96,26 +145,29 @@ int main(int argc, char* argv[]){
 
     cout << "Time take to sort by title: " << time.count() << endl;
 
-    ofstream outFileByName;
-    ofstream outFileByDate;
-    int i = 0;
-
-    if (strstr(fileName.c_str() , "..") || strchr(fileName.c_str() , '/') || strchr(fileName.c_str() , '\\')) {
-        printf("Invalid filename.\n");
+    // Extract and validate base filename
+    string fileName = getBaseFilename(argv[1]);
+    
+    // Validate the extracted filename
+    if (!isValidFilename(fileName)) {
+        cerr << "Error: Invalid filename detected (possible path traversal attempt)" << endl;
         return 1;
-    }
-
-    while(argv[1][i] != '.'){                                       //  Create a string "fileName" based on
-        fileName += argv[1][i];                                     //  command line file name
-        i++;                           
     }
 
     string finalFileByName = fileName + "ByName.txt";               // use "fileName" to construct a final file name
     string finalFileByDate = fileName + "ByDate.txt";               // based on sort method
 
-    outFileByName.open(finalFileByName);
+    ofstream outFileByName;
+    ofstream outFileByDate;
 
-    for(int i = 0; i < movies.size(); i++){
+    outFileByName.open(finalFileByName);
+    
+    if (!outFileByName.is_open()) {
+        cerr << "Error: Could not create output file " << finalFileByName << endl;
+        return 1;
+    }
+
+    for(size_t i = 0; i < movies.size(); i++){
         outFileByName << movies.at(i).title << " (" << movies.at(i).year        // write movies ordered by title to appropriate file
         << ")" << movies.at(i).actors << endl;
     }
@@ -138,8 +190,13 @@ int main(int argc, char* argv[]){
     cout << "Time to sort by date: " << time.count() << endl;
 
     outFileByDate.open(finalFileByDate);
+    
+    if (!outFileByDate.is_open()) {
+        cerr << "Error: Could not create output file " << finalFileByDate << endl;
+        return 1;
+    }
 
-    for(int i = 0; i < movies.size(); i++){
+    for(size_t i = 0; i < movies.size(); i++){
         outFileByDate << movies.at(i).title << " (" << movies.at(i).year        // write movies ordered by year to appropriate file
         << ")" << movies.at(i).actors << endl;
     }
