@@ -5,10 +5,9 @@ on:
     branches: [ main ]
   pull_request:
 
-
 permissions:
   contents: read
-  security-events: write   # needed to upload results to Code scanning
+  security-events: write
 
 jobs:
   analyze:
@@ -18,7 +17,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # language: [ 'javascript', 'python', 'ccpp', 'csharp', 'go', 'java-kotlin', 'ruby', 'swift']
         language: ['python', 'c-cpp']
         
     steps:
@@ -29,22 +27,11 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          # queries: security-extended,security-and-quality # optional suites
 
-      # For compiled languages, try Autobuild first (ignored for script languages)
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
-
-      - name: Build C/C++ code
-        if: matrix.language == 'c-cpp'
-        run: |
-          gcc your_file.c -o your_output
-          # Or if you have multiple files:
-          # make
-          # Or for C++:
-          # g++ homework0.cpp -std=c++11
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{ matrix.language }}"
+          category: "/language:${{matrix.language}}"
