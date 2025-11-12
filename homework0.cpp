@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <fstream>
 #include <chrono>
+#include <cstring>
 using namespace std;
 
 class Movie{
@@ -98,6 +99,11 @@ int main(int argc, char* argv[]){
     ofstream outFileByName;
     ofstream outFileByDate;
     int i = 0;
+
+    if (strstr(fileName.c_str() , "..") || strchr(fileName.c_str() , '/') || strchr(fileName.c_str() , '\\')) {
+        printf("Invalid filename.\n");
+        return 1;
+    }
 
     while(argv[1][i] != '.'){                                       //  Create a string "fileName" based on
         fileName += argv[1][i];                                     //  command line file name

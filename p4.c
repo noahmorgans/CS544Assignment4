@@ -33,7 +33,7 @@ int main() {
             printf("The token cannot be identified\n");
     
         printf("Enter a token to identify, EOF to stop:\n");
-        scanf("%s", token);
+        scanf("%99s", token);
     }
 
     return 0;
