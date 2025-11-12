@@ -113,7 +113,7 @@
             scanf("%d", &num);
                 if (num < 0) {
                     printf("sunny or cloudy: ");
-                    scanf("%s", sunnyCloudy);
+                    scanf("%6s", sunnyCloudy);
                         if (strcmp(sunnyCloudy, "sunny") == 0) {
                             printf("tennis\n");
                         }
