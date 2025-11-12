@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         # language: [ 'javascript', 'python', 'ccpp', 'csharp', 'go', 'java-kotlin', 'ruby', 'swift']
-        language: ['python', 'cpp']
+        language: ['python', 'c-cpp']
         
     steps:
       - name: Checkout
@@ -35,10 +35,14 @@ jobs:
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
-      - name: Build C++ code
-        if: matrix.language == 'cpp'
+      - name: Build C/C++ code
+        if: matrix.language == 'c-cpp'
         run: |
-          g++ homework0.cpp -std=c++11
+          gcc your_file.c -o your_output
+          # Or if you have multiple files:
+          # make
+          # Or for C++:
+          # g++ homework0.cpp -std=c++11
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
