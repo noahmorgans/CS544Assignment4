@@ -11,7 +11,6 @@
 #include <algorithm>
 #include <fstream>
 #include <chrono>
-#include <cstring>
 using namespace std;
 
 class Movie{
@@ -65,15 +64,7 @@ int main(int argc, char* argv[]){
     string line;
     vector<Movie> movies;
 
-    fileName = argv[1];
-    if (strstr(fileName.c_str() , "..") || strchr(fileName.c_str() , '/') || strchr(fileName.c_str() , '\\')) {
-        printf("Invalid filename.\n");
-        return 1;
-    }
-
-    char fileBuffer[50];
-    snprintf(fileBuffer, sizeof(fileBuffer), "/home/user/files/%s", fileName);
-    inFile.open(fileBuffer);
+    inFile.open(argv[1]);
 
     auto startTime = chrono::steady_clock::now();                       // start timing for creating collections
 

@@ -7,7 +7,7 @@
         int num, r;
 
         printf("north, south, east, or west: ");
-        scanf("%s", direction);
+        scanf("%5s", direction);
 
         if(strcmp(direction, "north") == 0) {
             printf("enter a positive integer: ");
