@@ -28,8 +28,11 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
+      - name: Build C/C++ code
+        if: matrix.language == 'c-cpp'
+        run: |
+          # Replace with your actual build command
+          gcc p4.c
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
